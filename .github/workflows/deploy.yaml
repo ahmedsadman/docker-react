@@ -1,11 +1,16 @@
-name: Deploy Frontend
+name: Build & Deploy
 on:
   push:
     branches:
+      - master
+  pull_request:
+    branches:
       - '*'
+      - '!master'
  
 jobs:
   build:
+    name: Build & Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -14,6 +19,7 @@ jobs:
       - run: docker run -e CI=true ahmedsadman/docker-react npm test
 
   deploy:
+    name: Deploy
     runs-on: ubuntu-latest
     needs: build
     if: github.ref == 'refs/heads/master'
