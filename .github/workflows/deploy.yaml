@@ -18,6 +18,7 @@ jobs:
     needs: build
     if: github.ref == 'refs/heads/master'
 
+    steps:
     - name: Generate deployment package
       run: zip -r deploy.zip . -x '*.git*'
 
